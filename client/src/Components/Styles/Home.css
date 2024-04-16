@@ -1,0 +1,124 @@
+
+:root{
+  --primary-color:#2A5752;
+}
+.Home{
+    height: 100%;
+    background-size:cover;
+    background-position: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: var(--primary-color);  
+}
+.ImageH img{
+    height: 30vmax; 
+}
+.ImageH{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: hovering 2s ease-in-out infinite;
+}
+.Title{
+    display: flex;
+    flex-direction: column;
+}
+.Title button{
+    color:#F0F0F0;
+    font-weight: bold;
+    border-radius: 0.75rem ;
+    border-width: 0;
+    background-color: var(--primary-color);
+    padding: 1rem;
+    width: 6rem;
+    cursor: pointer;
+}
+.Title button:hover{
+    background-color: #c3c3c3;
+    color:var(--primary-color);
+}
+.Title h1{
+    font-size: 4vmax;
+    padding: 0rem;
+}
+.Title p{
+    transform: translateY(-1.75rem);
+}
+
+
+@font-face {
+    font-family: 'Cedarville1';
+    src: url('../../../public/fonts/Cedarville-Cursive.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+  
+.Quote{
+    /*font-family: 'Cedarville Cursive', cursive;*/
+    font-size: 1.098vmax;
+    font-family: 'Cedarville1', cursive;
+}
+#up,#down{
+    display: none;
+}
+@media(max-width:1000px){
+    .Home{
+        flex-direction: column;
+    }
+    #up,#down{
+        display: flex;
+        height: 20vmax;
+    }
+    .ImageH{
+        z-index: -1;
+        align-items: center;
+        display: flex;      
+    }
+    .ImageH img{
+        opacity: 0.3;
+        height: 50vmax;
+        scale: 1.8;
+        display: none;
+    }
+    .Quote{       
+        font-size: 1.3vmax;
+        bottom: 2rem;
+        font-weight: bold;
+    }
+    .Title h1{
+        /*font-size: 4rem;*/
+        font-size: 5.5vmax;
+        text-align: center;
+        
+    }
+    .Title{
+        padding: 0rem;
+        align-items: center;
+        font-weight:bold;
+        justify-content: center;
+        text-shadow: 1rem 0.3rem 0.3rem 0.3rem black;
+    }
+    .Title p{
+        text-align: center;
+    }
+    .Title button{
+        margin-bottom: 2rem;
+    }
+     
+}
+
+@keyframes hovering {
+    0% {
+        transform: translateY(0);
+      }
+    
+      50% {
+        transform: translateY(10px);
+      }
+    
+      100% {
+        transform: translateY(0);
+      }
+    
+}
