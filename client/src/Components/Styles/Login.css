@@ -1,0 +1,58 @@
+:root{
+    --primary-color:#2A5752;    
+}
+.auth-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.registration-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1rem;
+    flex-direction: column;
+    border-radius: 1.5rem;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 20px;
+    border: solid 3px var(--primary-color);
+    background-color: #F0F0F0;;
+}
+
+.registration-form form{
+    padding: 0rem 2.5rem 2.5rem 2.5rem;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.registration-form form button{
+    color:#F0F0F0;
+    font-weight: bold;
+    border-radius: 0.75rem ;
+    border-width: 0;
+    /*background-color: #759A6F;*/
+    background-color: var(--primary-color);
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.registration-form form div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+}
+
+.registration-form form input{
+    width: 12rem;
+    border-radius: 9px;
+    padding: 8px;
+    border: solid;
+    border-width: 2px;
+    border-color: #2A5752;
+}
+
