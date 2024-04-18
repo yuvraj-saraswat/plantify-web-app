@@ -1,93 +1,100 @@
-import { createContext, useContext, useState, useEffect} from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 export const AuthContext = createContext();
 
-export const AuthProvider = ({children}) =>{
+export const AuthProvider = ({ children }) => {
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [user, setUser] = useState("");
+  const [services, setservices] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const authorizationToken = `Bearer ${token}`;
 
-    const [token, setToken] = useState(localStorage.getItem('token'));
-    const [user, setUser] = useState("");
-    const [services, setservices] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const authorizationToken = `Bearer ${token}`;
+  const API = import.meta.env.APP_URI_API;
 
-    const API = import.meta.env.APP_URI_API;
-    
-    const storeTokenInLS = (serverToken) => {
-        setToken(serverToken);
-        return localStorage.setItem("token", serverToken);
-    };
+  const storeTokenInLS = (serverToken) => {
+    setToken(serverToken);
+    return localStorage.setItem("token", serverToken);
+  };
 
-    let isLoggedIn = !!token;
+  let isLoggedIn = !!token;
 
-    const LogoutUser = ()=>{
-        setToken("");
-        setUser("");
-        //toast.success("Logged Out");
-        return localStorage.removeItem("token");
-    };
+  const LogoutUser = () => {
+    setToken("");
+    setUser("");
+    //toast.success("Logged Out");
+    return localStorage.removeItem("token");
+  };
 
-    //JWT Authentication- to get the currently loggedIN user data
+  //JWT Authentication- to get the currently loggedIN user data
 
-    const userAuthentication = async()=>{
-        try {
-            setIsLoading(true);
-            const response = await fetch("http://localhost:3000/api/auth/user",
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: authorizationToken,
-                    },
-                }
-            );
-            if(response.ok){
-                const data = await response.json();
-                console.log(data.userdata);
-                setUser(data.userData);  
-            } else{
-                console.log("error fetching user data");
-            }
-        } catch (error) {
-            console.log("Error fetching user Data");
-        } finally {
-            setIsLoading(false);
+  const userAuthentication = async () => {
+    try {
+      if (token) {
+        setIsLoading(true);
+        const response = await fetch("http://localhost:3000/api/auth/user", {
+          method: "GET",
+          headers: {
+            Authorization: authorizationToken,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+
+          await setUser(data.userData);
+
+          console.log(user.userdata + "Aaaaa");
+        } else {
+          console.log("error fetching user data");
         }
-    };
-
-    const getServices = async()=>{
-        try {
-            const response = await fetch('http://localhost:3000/api/data/service', {
-                method: 'GET',
-            });
-            if(response.ok){
-                const data = await response.json();
-                setservices(data.msg);
-            }
-        } catch (error) {
-            console.log(`service frontent error: ${error}`);
-        }
+      }
+    } catch (error) {
+      console.log("Error fetching user Data");
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    useEffect(()=>{
-        getServices();
-        userAuthentication();
-    },[]);
+  const getServices = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/data/service", {
+        method: "GET",
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setservices(data.msg);
+      }
+    } catch (error) {
+      console.log(`service frontent error: ${error}`);
+    }
+  };
 
-    return <AuthContext.Provider value={{isLoggedIn, 
-                                            storeTokenInLS, 
-                                            LogoutUser, 
-                                            user, 
-                                            services, 
-                                            authorizationToken,
-                                            isLoading
-                                        }}>
-        {children}
+  useEffect(() => {
+    getServices();
+    userAuthentication();
+  }, [token]);
+
+  return (
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        storeTokenInLS,
+        LogoutUser,
+        user,
+        services,
+        authorizationToken,
+        isLoading,
+        userAuthentication,
+      }}
+    >
+      {children}
     </AuthContext.Provider>
-}
+  );
+};
 
-export const useAuth = ()=>{
-    const authContextValue = useContext(AuthContext);
-    if(!authContextValue){
-        throw new Error("useAuth used outside of the Provider");
-    }
-    return authContextValue;
-}
+export const useAuth = () => {
+  const authContextValue = useContext(AuthContext);
+  if (!authContextValue) {
+    throw new Error("useAuth used outside of the Provider");
+  }
+  return authContextValue;
+};

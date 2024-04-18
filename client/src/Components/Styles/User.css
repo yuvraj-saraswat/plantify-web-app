@@ -6,6 +6,7 @@
     background-color: var(--primary-color);
     padding: 1rem;
     cursor: pointer;
+    margin-bottom: 2rem;
 }
 
 .user-container{
@@ -18,7 +19,7 @@
 
 .detail-container{
     margin-top: 3rem;
-    padding: 2rem;
+    padding: 3rem;
     width: 70%;
     display: flex ;
     justify-content: space-around;
@@ -33,4 +34,31 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+}
+
+.details h2{
+    margin: 0;
+    padding: 0;
+}
+
+.cart-container{
+    margin-top: 2rem;
+    padding: 3rem;
+    width: 70%;
+    display: flex ;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 20px;
+    border: solid 3px var(--primary-color);
+    background-color: #F0F0F0;;
+    border-radius: 20px;
+    min-height: 20rem;
+}
+.cart-contents{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 }
