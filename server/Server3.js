@@ -9,11 +9,10 @@ const serviceRoute = require("./router/service-router");
 const adminRoute = require("./router/admin-router");
 const errorMiddleware = require("./middlewares/error-middleware");
 const connectDB = require("./utils/db_mongo");
+const User = require("./models/user-model");
 
 const app = express();
 const PORT = 3000;
-
-const User = require("./models/user-model");
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -22,7 +21,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.use(express.json());
 
 app.use("/api", nurseryRouter);
@@ -100,10 +98,9 @@ app.get("/api/nursery/:userId/quantities/:nurseryName", async (req, res) => {
   }
 });
 
-
 app.patch("/add-to-cart", async (req, res) => {
   const { userId, nurseryName, plantId, quantity, price, photo_url } = req.body;
-  console.log("Bhalu");
+  console.log("pikachu ", quantity);
   try {
     const user = await User.findById(userId);
 
@@ -126,6 +123,9 @@ app.patch("/add-to-cart", async (req, res) => {
         if (quantity === 0) {
           // Remove the plant if quantity is 0
           user.cart[nurseryIndex].plants.splice(plantIndex, 1);
+          if(user.cart[nurseryIndex].plants.length===0){
+            user.cart.splice(nurseryIndex, 1);
+          }
         } else {
           // Update the quantity
           user.cart[nurseryIndex].plants[plantIndex].quantity = quantity;
@@ -134,10 +134,10 @@ app.patch("/add-to-cart", async (req, res) => {
         // If plant doesn't exist, add a new entry
         if (quantity > 0) {
           user.cart[nurseryIndex].plants.push({
-            plantId,
-            quantity,
-            price,
-            photo_url,
+            plantName: plantId,
+            quantity: quantity,
+            price: price,
+            photo_url: photo_url,
           });
         }
       }
@@ -145,8 +145,15 @@ app.patch("/add-to-cart", async (req, res) => {
       // If nursery doesn't exist in the cart, add a new entry
       if (quantity > 0) {
         user.cart.push({
-          nurseryName,
-          plants: [{ plantId, quantity, price, photo_url }],
+          nursery: nurseryName,
+          plants: [
+            {
+              plantName: plantId,
+              quantity: quantity,
+              price: price,
+              photo_url: photo_url,
+            },
+          ],
         });
       }
     }
@@ -159,3 +166,29 @@ app.patch("/add-to-cart", async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 });
+
+
+
+
+app.get("/cart/:userId", async (req, res) => {
+  try {
+    const {userId} = req.params; // Extract userId from the request
+
+    // Find the user by userId and only return the cart details
+    const user = await User.findById(userId).select("cart");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // If user found, return cart details
+    res.status(200).json(user.cart);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+
+

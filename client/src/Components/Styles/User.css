@@ -1,15 +1,23 @@
-.user-container button{
-    color:#F0F0F0;
+.user-container button {
+    color: #F0F0F0;
     font-weight: bold;
-    border-radius: 0.75rem ;
+    border-radius: 0.75rem;
     border-width: 0;
     background-color: var(--primary-color);
     padding: 1rem;
     cursor: pointer;
-    margin-bottom: 2rem;
 }
 
-.user-container{
+#check-out{
+    margin-top: 2rem;
+    width: 80%;
+    
+}
+
+#log-out{
+    margin-bottom: 2rem;
+}
+.user-container {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -17,48 +25,101 @@
     gap: 2rem;
 }
 
-.detail-container{
+.detail-container {
     margin-top: 3rem;
     padding: 3rem;
     width: 70%;
-    display: flex ;
+    display: flex;
     justify-content: space-around;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 20px;
     border: solid 3px var(--primary-color);
-    background-color: #F0F0F0;;
+    background-color: #F0F0F0;
+
     border-radius: 20px;
 }
 
-.details{
+.details {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-.details h2{
+.details h2 {
     margin: 0;
     padding: 0;
 }
 
-.cart-container{
+.cart-container {
     margin-top: 2rem;
     padding: 3rem;
     width: 70%;
-    display: flex ;
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 20px;
     border: solid 3px var(--primary-color);
-    background-color: #F0F0F0;;
+    background-color: #F0F0F0;
     border-radius: 20px;
     min-height: 20rem;
 }
-.cart-contents{
+
+.cart-contents {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     flex: 1;
+    width: 100%;
+}
+
+.cart-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    min-width: 90%;
+    gap: 1rem;
+    padding-left: 0;
+}
+
+.cart-list>li {
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.plant-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+
+    gap: 1rem;
+}
+
+.plant-list>li {
+    background-color: white;
+    padding-right: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0rem 2rem 2rem 0rem;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 20px;
+    border: solid 2px var(--primary-color);
+}
+
+.cart-plant-pic {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    overflow: hidden;
+}
+
+.cart-plant-pic > img{
+    width: 100%;
+    object-fit: cover;
+    height: auto;
 }

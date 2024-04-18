@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useAuth } from "./store/auth";
 import { Link, NavLink } from "react-router-dom";
 import "./Styles/User.css";
@@ -7,6 +8,8 @@ import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantity
 
 function User() {
   const { user } = useAuth();
+  const [cart, setCart] = useState([]);
+
   /*const { user, userAuthentication } = useAuth(); 
     // Assuming useAuth returns a loading state
 
@@ -16,6 +19,27 @@ function User() {
             userAuthentication();
         }
     }, [ user]);*/
+
+  useEffect(() => {
+    // Fetch cart details when the component mounts
+    fetchCartDetails();
+  }, [user]);
+
+  const fetchCartDetails = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/cart/${user._id}`
+      ); // Assuming the backend server is running on the same host
+
+      // Update state with fetched cart details
+      console.log("how are");
+      setCart(response.data);
+    } catch (error) {
+      console.error("Error fetching cart details:", error);
+    }
+  };
+
+  console.log("pika", cart);
   return (
     <div className="user-container">
       <div className="detail-container">
@@ -38,15 +62,47 @@ function User() {
       <div className="cart-container">
         <h1>Cart</h1>
         <div className="cart-contents">
-          <ProductionQuantityLimitsIcon
+            {cart.length===0?<><ProductionQuantityLimitsIcon
             style={{ fontSize: "10rem", color: "#2A5752" }}
           />
-          <i>Wow, So Empty!!</i>
-        </div>
-      </div>
+  <i>Wow, So Empty!!</i></>:
+  <><ul className="cart-list">
+  {cart.map((item) => (
+    <li>
+      <h3>Nursery: {item.nursery}</h3>
+      <ul className="plant-list">
+        {item.plants.map((plant) => (
+          <li>
+            <div className="cart-plant-pic">
+              <img
+                src={plant.photo_url}
+                alt={plant.plantName}
+                height="80px"
+              />
+            </div>
+            <b>{plant.plantName}</b>
+            <p>Quantity: {plant.quantity}</p>
+            <p>Price: {plant.price}</p>
+          </li>
+        ))}
+      </ul>
+    </li>
+  ))}
+</ul>
+<button id="check-out">Check Out</button>
+        </>
+      
+}
+          
+          {/*<ProductionQuantityLimitsIcon
+            style={{ fontSize: "10rem", color: "#2A5752" }}
+          />
+  <i>Wow, So Empty!!</i>*/}
+  </div>
+  </div>
 
       <NavLink to="/logout">
-        <button>Log Out</button>
+        <button id="log-out">Log Out</button>
       </NavLink>
     </div>
   );

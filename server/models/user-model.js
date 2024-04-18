@@ -31,18 +31,22 @@ const userSchema = new mongoose.Schema({
   ],
   cart: [
     {
-      nursery: { type: String, required: true },
+      nursery: { type: String },
       plants: [
         {
-          plantName: { type: String, required: true },
-          quantity: { type: Number, required: true },
-          price: { type: Number, required: true },
-          photo_url: { type: String, required: true },
+          plantName: { type: String },
+          quantity: { type: Number },
+          price: { type: Number },
+          photo_url: { type: String },
         },
       ],
     },
   ],
 });
+
+
+
+
 
 userSchema.pre("save", async function (next) {
   const user = this;

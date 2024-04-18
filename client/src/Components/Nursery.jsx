@@ -81,52 +81,6 @@ const Nursery = () => {
       );
   }, [userId]);
 
-  //last code
-
-  /*useEffect(() => {
-    axios.get(`http://localhost:3000/api/nursery/${nurseryId}`)
-      .then(response => {
-        setNursery(response.data)
-      })
-      .catch(error => console.error('Error fetching nursery details:', error));
-
-    
-    axios.get(`http://localhost:3000/api/nursery/${nurseryId}/plants`)
-      .then(response2 => {
-        // Initialize quantities state with default values of 0 for each plant
-        axios.get(`http://localhost:3000/api/nursery/${user._id}/quantities/${nursery.name}`)
-          .then(responseQuantities => {
-            console.log("hello hi");
-            const initialQuantities = {};
-
-            response2.data.forEach(plant => {
-              initialQuantities[plant.name] = responseQuantities.data[plant.name] || 0;
-            });
-
-            console.log("hello");
-            setPlants(response2.data);
-            setQuantities(initialQuantities);
-          })
-          .catch(error => {
-            console.error('Error fetching quantities:', error);
-            // If error occurs while fetching quantities, initialize with 0
-            const initialQuantities = {};
-            response2.data.forEach(plant => {
-              initialQuantities[plant.name] = 0;
-            });
-            setPlants(response2.data);
-            setQuantities(initialQuantities);
-            console.log("Ciao",userId);
-          });
-        
-      })
-      .catch(error => console.error('Error fetching plants in nursery:', error));
-
-    axios.get(`http://localhost:3000/api/nursery/${nurseryId}/avg`)
-      .then(response => setPriceRange(response.data))
-      .catch(error => console.error('Error fetching price range in nursery:', error));
-  }, [userId, nurseryId]);*/
-
   const increaseQuantity = (plantId, price, photo_url) => {
     setQuantities((prev) => ({
       ...prev,
@@ -140,7 +94,7 @@ const Nursery = () => {
         quantity: { ...quantities, [plantId]: quantities[plantId] + 1 },
       })
       .then(() => {
-        
+
         axios
           .patch(`http://localhost:3000/add-to-cart`, {
             userId,
@@ -196,19 +150,7 @@ const Nursery = () => {
     }
   };
 
-  /*useEffect(() => {
-      axios.get(`http://localhost:3000/api/nursery/${nurseryId}`)
-        .then(response => setNursery(response.data))
-        .catch(error => console.error('Error fetching nursery details:', error));
-  
-      axios.get(`http://localhost:3000/api/nursery/${nurseryId}/plants`)
-        .then(response => setPlants(response.data))
-        .catch(error => console.error('Error fetching plants in nursery:', error));
 
-        axios.get(`http://localhost:3000/api/nursery/${nurseryId}/avg`)
-        .then(response => setPriceRange(response.data))
-        .catch(error => console.error('Error fetching plants in nursery:', error));
-    }, [nurseryId]);*/
 
   return (
     <>
