@@ -19,13 +19,6 @@ const Nursery = () => {
 
   const userId = user._id;
   var nurseryName = nursery.name;
-  /*useEffect(() => {
-      if (user.length===0) {
-          // Fetch user data again if user is empty
-          userAuthentication();
-      }
-
-    }, [ user ]);*/
 
   useEffect(() => {
     axios
@@ -40,7 +33,7 @@ const Nursery = () => {
             // Initialize quantities state with default values of 0 for each plant
             axios
               .get(
-                `http://localhost:3000/api/nursery/${user._id}/quantities/${response.data.name}`
+                `http://localhost:3000/api/cart//get-quantity/${user._id}/${response.data.name}`
               )
               .then((responseQuantities) => {
                 const initialQuantities = {};
@@ -88,15 +81,14 @@ const Nursery = () => {
     }));
 
     axios
-      .patch(`http://localhost:3000/add-quantity`, {
+      .patch(`http://localhost:3000/api/cart/add-quantity`, {
         userId,
         nurseryName,
         quantity: { ...quantities, [plantId]: quantities[plantId] + 1 },
       })
       .then(() => {
-
         axios
-          .patch(`http://localhost:3000/add-to-cart`, {
+          .patch(`http://localhost:3000/api/cart/add-to-cart`, {
             userId,
             nurseryName,
             plantId,
@@ -125,14 +117,14 @@ const Nursery = () => {
 
     if (quantities[plantId] > 0) {
       axios
-        .patch(`http://localhost:3000/add-quantity`, {
+        .patch(`http://localhost:3000/api/cart/add-quantity`, {
           userId,
           nurseryName,
           quantity: { ...quantities, [plantId]: quantities[plantId] - 1 },
         })
         .then(() => {
           axios
-            .patch(`http://localhost:3000/add-to-cart`, {
+            .patch(`http://localhost:3000/api/cart/add-to-cart`, {
               userId,
               nurseryName,
               plantId,
@@ -149,8 +141,6 @@ const Nursery = () => {
         .catch((error) => console.error("Error updating quantity:", error));
     }
   };
-
-
 
   return (
     <>
