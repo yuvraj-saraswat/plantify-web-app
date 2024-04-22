@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/user-model");
+const Vendor = require("../models/vendor-model");
 
 const authMiddleware = async (req, res, next)=>{
     const token = req.header("Authorization");
@@ -13,7 +13,7 @@ const authMiddleware = async (req, res, next)=>{
     console.log(jwtToken);
     try {
         const isVerified = jwt.verify(jwtToken, process.env.JWT_KEY);
-        const userData = await User.findOne({email:isVerified.email}).select({password:0});
+        const userData = await Vendor.findOne({email:isVerified.email}).select({password:0});
         
         console.log(userData);
         req.user = userData;

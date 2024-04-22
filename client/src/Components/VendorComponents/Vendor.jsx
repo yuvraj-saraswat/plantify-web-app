@@ -3,7 +3,7 @@ import { NavLink, Navigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 
 function Vendor() {
-  const { user, isLoading } = useAuth();
+  const { user, vendor,isLoading } = useAuth();
   /*if (!user.isAdmin) {
     return <Navigate to="/" />;
   }*/
@@ -11,7 +11,7 @@ function Vendor() {
     <div>
       <ul>
         <li>
-          <NavLink to="/vendor/nursery">{user.username}</NavLink>
+          <NavLink to="/vendor/nursery">{vendor.username}</NavLink>
         </li>
         <li>
           <NavLink to="/vendor/plants">Plants</NavLink>

@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState("");
+  const [vendor, setVendor] = useState("");
   const [services, setservices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const authorizationToken = `Bearer ${token}`;
@@ -21,6 +22,7 @@ export const AuthProvider = ({ children }) => {
   const LogoutUser = () => {
     setToken("");
     setUser("");
+    setVendor("");
     //toast.success("Logged Out");
     return localStorage.removeItem("token");
   };
@@ -54,23 +56,36 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const getServices = async () => {
+  const vendorAuthentication = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/data/service", {
-        method: "GET",
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setservices(data.msg);
+      if (token) {
+        setIsLoading(true);
+        const response = await fetch("http://localhost:3000/api/auth/vendor-details", {
+          method: "GET",
+          headers: {
+            Authorization: authorizationToken,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+
+          await setVendor(data.userData);
+
+          //console.log(vendor.userdata + "Aaaaa");
+        } else {
+          console.log("error fetching user data");
+        }
       }
     } catch (error) {
-      console.log(`service frontent error: ${error}`);
+      console.log("Error fetching user Data");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    getServices();
     userAuthentication();
+    vendorAuthentication();
   }, [token]);
 
   return (
@@ -80,7 +95,7 @@ export const AuthProvider = ({ children }) => {
         storeTokenInLS,
         LogoutUser,
         user,
-        services,
+        vendor,
         authorizationToken,
         isLoading,
         userAuthentication,
