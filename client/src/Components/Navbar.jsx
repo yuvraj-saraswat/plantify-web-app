@@ -6,6 +6,7 @@ import logo from "./Images/Mainlogo.png";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "./store/auth";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { toast } from "react-toastify";
 
 export default function Navbar() {
   const { isLoggedIn, user } = useAuth();

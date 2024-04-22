@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+/*const { Schema, model } = require("mongoose");
 
 const serviceSchema = new Schema({
     service:{
@@ -21,4 +21,4 @@ const serviceSchema = new Schema({
 
 const Service = new model('Service', serviceSchema);
 
-module.exports = Service;
+module.exports = Service;*/

@@ -50,7 +50,7 @@
     padding: 0;
 }
 
-.cart-container {
+#cart-container {
     margin-top: 2rem;
     padding: 3rem;
     width: 70%;
@@ -65,7 +65,7 @@
     min-height: 20rem;
 }
 
-.cart-contents {
+#cart-contents {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -81,33 +81,43 @@
     min-width: 90%;
     gap: 1rem;
     padding-left: 0;
+    align-items: center;
 }
 
-.cart-list>li {
-
+.cart-list > li {
+    background-color: white;
     display: flex;
     flex-direction: column;
     width: 100%;
     gap: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: solid 2px var(--primary-color);
 }
 
+.cart-list a{
+    text-decoration: none;
+    color: black;
+}
 .plant-list {
     list-style: none;
     display: flex;
     flex-direction: column;
     padding-left: 0;
-
     gap: 1rem;
 }
 
 .plant-list>li {
-    background-color: white;
+    /*background-color: white;*/
+    background-color: #f5f5f5;
     padding-right: 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-radius: 0rem 2rem 2rem 0rem;
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     border: solid 2px var(--primary-color);
 }
 
@@ -122,4 +132,34 @@
     width: 100%;
     object-fit: cover;
     height: auto;
+}
+
+#nursery-total{
+    /*background-color: aqua;*/
+    display: flex;
+    justify-content: right;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    width: 100%;
+    
+}
+
+#nursery-total b{
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}
+
+#grand-total{
+    margin-top: 1rem;
+    background-color: white;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0rem 1rem 0rem;
+    border-radius: 2rem;
+    border: solid 2px var(--primary-color);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }

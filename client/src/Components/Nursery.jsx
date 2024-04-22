@@ -5,17 +5,24 @@ import {
   Route,
   Link,
   useParams,
+  useNavigate,
+  NavLink,
 } from "react-router-dom";
 import "./Styles/Nursery.css";
 import { useAuth } from "./store/auth";
+import { toast } from "react-toastify";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 
 const Nursery = () => {
+  const navigate = useNavigate();
   const { nurseryId } = useParams();
   const [nursery, setNursery] = useState({});
   const [plants, setPlants] = useState([]);
   const [priceRange, setPriceRange] = useState([]);
-  const [quantities, setQuantities] = useState({}); // State to keep track of plant quantities
-  const { user, userAuthentication } = useAuth();
+  const [quantities, setQuantities] = useState({});
+  const [total, setTotal] = useState();
+  const { user, userAuthentication, isLoggedIn } = useAuth();
 
   const userId = user._id;
   var nurseryName = nursery.name;
@@ -74,36 +81,59 @@ const Nursery = () => {
       );
   }, [userId]);
 
+  useEffect(() => {
+    fetchCartDetails();
+    
+  }, [user]);
+
+  const fetchCartDetails = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/cart/get-cart/${user._id}`
+      );
+      setTotal(response.data.sumTotal);
+    } catch (error) {
+      console.error("Error fetching cart details:", error);
+    }
+  };
+
   const increaseQuantity = (plantId, price, photo_url) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [plantId]: prev[plantId] + 1,
-    }));
+    if (isLoggedIn) {
+      setQuantities((prev) => ({
+        ...prev,
+        [plantId]: prev[plantId] + 1,
+      }));
 
-    axios
-      .patch(`http://localhost:3000/api/cart/add-quantity`, {
-        userId,
-        nurseryName,
-        quantity: { ...quantities, [plantId]: quantities[plantId] + 1 },
-      })
-      .then(() => {
-        axios
-          .patch(`http://localhost:3000/api/cart/add-to-cart`, {
-            userId,
-            nurseryName,
-            plantId,
-            quantity: quantities[plantId] + 1,
-            price,
-            photo_url,
-          })
-          .then(() => {
-            console.log("added to cart");
-          })
-          .catch((error) => console.error("Error updating cart:", error));
+      axios
+        .patch(`http://localhost:3000/api/cart/add-quantity`, {
+          userId,
+          nurseryName,
+          quantity: { ...quantities, [plantId]: quantities[plantId] + 1 },
+        })
+        .then(() => {
+          axios
+            .patch(`http://localhost:3000/api/cart/add-to-cart`, {
+              userId,
+              nurseryName,
+              plantId,
+              quantity: quantities[plantId] + 1,
+              price,
+              photo_url,
+              nurseryId
+            })
+            .then(() => {
+              fetchCartDetails();
+              console.log("added to cart");
+            })
+            .catch((error) => console.error("Error updating cart:", error));
 
-        console.log("added");
-      })
-      .catch((error) => console.error("Error updating quantity:", error));
+          console.log("added");
+        })
+        .catch((error) => console.error("Error updating quantity:", error));
+    } else {
+      navigate("/login");
+      toast.error("Please Login");
+    }
   };
 
   // Function to handle decreasing quantity
@@ -131,8 +161,10 @@ const Nursery = () => {
               quantity: quantities[plantId] - 1,
               price,
               photo_url,
+              nurseryId
             })
             .then(() => {
+              fetchCartDetails();
               console.log("added to cart");
             })
             .catch((error) => console.error("Error updating cart:", error));
@@ -223,6 +255,17 @@ const Nursery = () => {
           ))}
         </div>
       </div>
+      {
+        isLoggedIn &&
+        total !== 0 &&
+        <div className="floating-cart">
+        <Link to="/user">
+          <ShoppingBagOutlinedIcon style={{ fontSize: "2rem" }} />
+          <p>₹{total}</p>
+          <ArrowForwardIosOutlinedIcon style={{ fontSize: "1.75rem" }}/>
+        </Link>
+      </div>
+    } 
     </>
   );
 };

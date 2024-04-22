@@ -25,13 +25,13 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api", nurseryRouter);
-
 app.use("/api/auth", authRoute);
-app.use("/api/form", contactRoute);
-app.use("/api/data", serviceRoute);
-app.use("/api/admin", adminRoute);
 app.use("/api/cart", cartRoute);
 app.use(errorMiddleware);
+
+//app.use("/api/form", contactRoute);
+//app.use("/api/data", serviceRoute);
+//app.use("/api/admin", adminRoute);
 
 connectDB()
   .then(() => {

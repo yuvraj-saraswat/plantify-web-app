@@ -17,11 +17,6 @@ const signupSchema = z.object({
         .trim()
         .min(10,{message: "Phone must be atleast 10 chars"})
         .max(20, {message: "Phone must not be more than 20 chars"}),
-    username: z
-        .string({required_error: "Name is required"})
-        .trim()
-        .min(3,{message: "Name must be atleast 3 chars"})
-        .max(255, {message: "Name must not be more than 255 chars"}),
     password: z
         .string({required_error: "Password is required"})
         .min(7,{message: "Password must be atleast 7 chars"})

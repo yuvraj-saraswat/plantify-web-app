@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -29,23 +30,25 @@ const userSchema = new mongoose.Schema({
       quantities: { type: Map, of: Number },
     },
   ],
-  cart: [
-    {
-      nursery: { type: String },
-      plants: [
-        {
-          plantName: { type: String },
-          quantity: { type: Number },
-          price: { type: Number },
-          photo_url: { type: String },
-        },
-      ],
-    },
-  ],
+  cart: {
+    cartItems: [
+      {
+        nursery: { type: String },
+        nurseryId: {type: Number},
+        total: { type: Number, default: 0 },
+        plants: [
+          {
+            plantName: { type: String },
+            quantity: { type: Number },
+            price: { type: Number },
+            photo_url: { type: String },
+          },
+        ],
+      },
+    ],
+    sumTotal: { type: Number, default: 0 },
+  },
 });
-
-
-
 
 
 userSchema.pre("save", async function (next) {

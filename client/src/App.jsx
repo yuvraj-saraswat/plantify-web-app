@@ -10,6 +10,14 @@ import Login from './Components/Login';
 import { Register } from './Components/Register';
 import { Logout } from './Components/Logout';
 import User from './Components/User';
+import VendorLogin from './Components/VendorLogin';
+import UserLogin from './Components/UserLogin';
+import UserRegister from './Components/UserRegister';
+import VendorRegister from './Components/VendorRegister';
+import Vendor from './Components/VendorComponents/Vendor';
+import VendorNursery from './Components/VendorComponents/VendorNursery';
+import VendorPlant from './Components/VendorComponents/VendorPlant';
+import Order from './Components/VendorComponents/Order';
 
 
 function App() {
@@ -25,10 +33,17 @@ function App() {
           <Route path="/cities" element={<Cities/>}/>
           <Route path="/nurseries/:cityId" element={<City/>} />
           <Route path="/nursery/:nurseryId" element={<Nursery/>} />
-          <Route path="/login" element = {<Login/>}/>
-          <Route path="/register" element = {<Register/>}/>
+          <Route path="/login" element = {<UserLogin/>}/>
+          <Route path="/vendorLogin" element = {<VendorLogin/>}/>
+          <Route path="/register" element = {<UserRegister/>}/>
+          <Route path="/vendorRegister" element = {<VendorRegister/>}/>
           <Route path="/logout" element={<Logout/>}/>
           <Route path="/user" element={<User/>}/>
+          <Route path="/vendor" element={<Vendor/>}>
+            <Route path="nursery" element = {<VendorNursery/>}/>
+            <Route path="plants" element = {<VendorPlant/>}/>
+            <Route path="orders" element={<Order/>}/>
+          </Route>
         </Routes>    
       </div>
     </div>

@@ -142,3 +142,22 @@
   justify-content: space-between;
 }
 
+/* FloatingCart.css */
+
+.floating-cart a{
+  text-decoration: none;
+  display: flex;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color:  #2A5752;
+  border: 1px solid #ccc;
+  color: aliceblue;
+  padding: 1rem;
+  border-radius: 5px;
+  font-size: 2rem;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 15px;
+}
+

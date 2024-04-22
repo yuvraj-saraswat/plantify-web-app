@@ -1,4 +1,4 @@
-const {Schema, model} = require("mongoose");
+/*const {Schema, model} = require("mongoose");
 
 const contactSchema = new Schema({
     username: {
@@ -16,4 +16,4 @@ const contactSchema = new Schema({
 });
 
 const Contact = new model("Contact", contactSchema);
-module.exports = Contact;
+module.exports = Contact;*/

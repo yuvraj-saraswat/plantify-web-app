@@ -11,6 +11,7 @@
     width: 100%;
     /*color: #759A6F;*/
     color: var(--primary-color);
+    z-index: 1;
 }
 .Logo{
     padding-left: 2rem;

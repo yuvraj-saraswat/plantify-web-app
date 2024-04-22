@@ -22,6 +22,7 @@ function User() {
 
   useEffect(() => {
     fetchCartDetails();
+    console.log("haha", cart);
   }, [user]);
 
   const fetchCartDetails = async () => {
@@ -29,6 +30,7 @@ function User() {
       const response = await axios.get(
         `http://localhost:3000/api/cart/get-cart/${user._id}`
       );
+      
       setCart(response.data);
     } catch (error) {
       console.error("Error fetching cart details:", error);
@@ -54,10 +56,10 @@ function User() {
           </div>
         </div>
       </div>
-      <div className="cart-container">
+      <div id="cart-container">
         <h1>Cart</h1>
-        <div className="cart-contents">
-          {cart.length === 0 ? (
+        <div id="cart-contents">
+          {cart=== undefined || cart.sumTotal === 0 ? (
             <>
               <ProductionQuantityLimitsIcon
                 style={{ fontSize: "10rem", color: "#2A5752" }}
@@ -67,11 +69,11 @@ function User() {
           ) : (
             <>
               <ul className="cart-list">
-                {cart.map((item) => (
+                {cart && cart.cartItems && cart.cartItems.map((item) => (
                   <li>
-                    <h3>Nursery: {item.nursery}</h3>
+                    <Link to={`/nursery/${item.nurseryId}`}><h3>Nursery: {item.nursery}</h3></Link>
                     <ul className="plant-list">
-                      {item.plants.map((plant) => (
+                      {cart && cart.cartItems && item.plants.map((plant) => (
                         <li>
                           <div className="cart-plant-pic">
                             <img
@@ -81,14 +83,16 @@ function User() {
                             />
                           </div>
                           <b>{plant.plantName}</b>
-                          <p>Quantity: {plant.quantity}</p>
-                          <p>Price: {plant.price}</p>
+                          <p><b>Quantity:</b> {plant.quantity}</p>
+                          <p><b>Price:</b> {plant.price}</p>
                         </li>
                       ))}
                     </ul>
+                    <div id="nursery-total"><b>Total: {item.total}</b></div>
                   </li>
                 ))}
               </ul>
+              <div id ="grand-total"><b>Grand Total: {cart.sumTotal}</b></div>
               <button id="check-out">Check Out</button>
             </>
           )}
