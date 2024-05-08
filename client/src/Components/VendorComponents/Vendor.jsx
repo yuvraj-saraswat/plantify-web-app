@@ -1,25 +1,26 @@
 import React from "react";
-import { NavLink, Navigate } from "react-router-dom";
+import { NavLink, Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../store/auth";
+import "../Styles/Vendor.css";
 
 function Vendor() {
-  const { user, vendor,isLoading } = useAuth();
+  const { vendor, isLoading } = useAuth();
   /*if (!user.isAdmin) {
     return <Navigate to="/" />;
   }*/
   return (
-    <div>
-      <ul>
-        <li>
-          <NavLink to="/vendor/nursery">{vendor.username}</NavLink>
-        </li>
-        <li>
-          <NavLink to="/vendor/plants">Plants</NavLink>
-        </li>
-        <li>
-          <NavLink to="/orders">Orders</NavLink>
-        </li>
-      </ul>
+    <div className="vendor-panel">
+      <nav>
+        <ul>
+          <li>
+            <NavLink to="/vendor/nursery">Nurseries</NavLink>
+          </li>
+          <li>
+            <NavLink to="/vendor/orders">Orders</NavLink>
+          </li>
+        </ul>
+      </nav>
+      <Outlet />
     </div>
   );
 }

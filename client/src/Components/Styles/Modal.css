@@ -1,0 +1,44 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Box shadow for a slight elevation effect */
+    max-width: 80%;
+    border: solid 3px var(--primary-color);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+  }
+  
+  /* Close button */
+  .modal-content button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 2;
+  }
+  
+  /* Close button hover effect */
+  .modal-content button:hover {
+    background-color: #ddd;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  

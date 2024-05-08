@@ -4,7 +4,7 @@ import { useAuth } from "./store/auth";
 import { toast } from "react-toastify";
 import "./Styles/Login.css";
 
-export const Register = ({ header, apiEndpoint, linkDescription, link }) => {
+export const Register = ({ header, apiEndpoint, linkDescription, link, navTo }) => {
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -41,7 +41,7 @@ export const Register = ({ header, apiEndpoint, linkDescription, link }) => {
       const res_data = await response.json();
 
       if (response.ok) {
-        storeTokenInLS(res_data.token);
+        //storeTokenInLS(res_data.token);
         setUser({
           username: "",
           email: "",
@@ -49,7 +49,7 @@ export const Register = ({ header, apiEndpoint, linkDescription, link }) => {
           password: "",
         });
         toast.success("Registered Successfully");
-        navigate("/login");
+        navigate(navTo);
       } else {
         toast.error(
           res_data.extraDetails ? res_data.extraDetails : res_data.message

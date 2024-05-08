@@ -6,12 +6,14 @@ function UserRegister() {
   const apiEndpoint = "http://localhost:3000/api/auth/register";
   const linkDescription = "Register as Vendor?";
   const link = "/vendorRegister";
+  const navTo = "/login";
   return (
     <Register
       header={header}
       apiEndpoint={apiEndpoint}
       linkDescription={linkDescription}
       link={link}
+      navTo={navTo}
     />
   );
 }

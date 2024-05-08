@@ -7,6 +7,7 @@ const authRoute = require("./router/auth-router");
 const contactRoute = require("./router/contact-router");
 const serviceRoute = require("./router/service-router");
 const adminRoute = require("./router/admin-router");
+const vendorRoute = require("./router/vendor-router");
 const cartRoute = require("./router/cart-router");
 const errorMiddleware = require("./middlewares/error-middleware");
 const connectDB = require("./utils/db_mongo");
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use("/api", nurseryRouter);
 app.use("/api/auth", authRoute);
 app.use("/api/cart", cartRoute);
+app.use("/api/vendor", vendorRoute)
 app.use(errorMiddleware);
 
 //app.use("/api/form", contactRoute);

@@ -22,7 +22,7 @@ const Nursery = () => {
   const [priceRange, setPriceRange] = useState([]);
   const [quantities, setQuantities] = useState({});
   const [total, setTotal] = useState();
-  const { user, userAuthentication, isLoggedIn } = useAuth();
+  const { user, userAuthentication, isLoggedIn, vendor } = useAuth();
 
   const userId = user._id;
   var nurseryName = nursery.name;
@@ -241,6 +241,7 @@ const Nursery = () => {
                   >
                     {quantities[plant.name]}
                   </h5>
+                  {!vendor &&
                   <button
                     id="positive"
                     onClick={() =>
@@ -248,7 +249,7 @@ const Nursery = () => {
                     }
                   >
                     <b>+</b>
-                  </button>
+                  </button>}
                 </div>
               </div>
             </div>
@@ -256,6 +257,7 @@ const Nursery = () => {
         </div>
       </div>
       {
+        !vendor &&
         isLoggedIn &&
         total !== 0 &&
         <div className="floating-cart">

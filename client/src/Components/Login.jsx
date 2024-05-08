@@ -6,7 +6,7 @@ import "./Styles/Login.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { IconButton } from "@mui/material";
 
-export default function Login({ header, apiEndpoint, linkDescription, link }) {
+export default function Login({ header, apiEndpoint, linkDescription, link, navTo}) {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -47,7 +47,7 @@ export default function Login({ header, apiEndpoint, linkDescription, link }) {
           password: "",
         });
         toast.success("Logged in");
-        navigate("/");
+        navigate(navTo);
       } else {
         toast.error(
           res_data.extraDetails ? res_data.extraDetails : res_data.message

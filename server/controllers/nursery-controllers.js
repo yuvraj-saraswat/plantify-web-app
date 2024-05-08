@@ -93,6 +93,19 @@ const getNurseryAverage = (req, res) => {
   });
 };
 
+
+const getAllPlantsList = (req, res) => {
+  const query = "SELECT plant_id, name FROM plants ORDER BY name";
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching cities:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+    res.json(results);
+  });
+};
+
 module.exports = {
   getCities,
   getCityById,
@@ -100,4 +113,5 @@ module.exports = {
   getNurseryById,
   getPlantsByNurseryId,
   getNurseryAverage,
+  getAllPlantsList
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../App.css";
 import "./Styles/Navbar.css";
 import menu from "./Images/menu.png";
@@ -6,10 +6,16 @@ import logo from "./Images/Mainlogo.png";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "./store/auth";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
 import { toast } from "react-toastify";
 
 export default function Navbar() {
-  const { isLoggedIn, user } = useAuth();
+  const { isLoggedIn, user, vendor } = useAuth();
+  console.log("wow",vendor.isAdmin);
+  let link = "/user";
+  if(vendor.isAdmin){
+    link="/vendor/nursery";
+  }
   return (
     <>
       <div className="Navbar">
@@ -37,10 +43,9 @@ export default function Navbar() {
 
             {isLoggedIn ? (
               <>
-                {/*<NavLink to="/logout"><button>Log Out</button></NavLink> */}
                 <NavLink
                   title={user.username}
-                  to="/user"
+                  to={link}
                   className="AccountCircle"
                 >
                   <AccountCircleIcon
