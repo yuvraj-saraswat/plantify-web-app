@@ -22,8 +22,8 @@ Plantify is a web application designed to simplify the process of discovering an
 To run this project locally, follow these steps:
 
 1. Clone the repository to your local machine.
-2. Install dependencies using npm or yarn: `npm install` or `yarn install`.
-3. Start the backend server: `node server.js`.
-4. Start the frontend development server: `npm start` or `yarn start`.
-5. Access the application in your web browser at `http://localhost:3000`.
+2. Install dependencies using npm or yarn: `npm install`.
+3. Move to the server folder and start the backend server: `node server3.js`.
+4. Move to the client folder and start the frontend development server: `npm run dev`.
+5. Access the application in your web browser at `http://localhost:5173`.
 
