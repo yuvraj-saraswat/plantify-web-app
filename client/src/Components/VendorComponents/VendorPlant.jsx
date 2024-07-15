@@ -144,7 +144,7 @@ function VendorPlant() {
               id="plant"
               value={selectedPlant}
               onChange={(e) => {
-                setSelectedPlant(e.target.value); // Set the selectedCityId directly to the value of the selected option
+                setSelectedPlant(e.target.value); 
               }}
             >
               <option value="">Select a plant</option>

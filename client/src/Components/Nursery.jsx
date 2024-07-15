@@ -31,13 +31,13 @@ const Nursery = () => {
     axios
       .get(`http://localhost:3000/api/nursery/${nurseryId}`)
       .then((response) => {
-        // First Axios call completed successfully
+        
         setNursery(response.data);
-        // Now make the second Axios call
+        
         axios
           .get(`http://localhost:3000/api/nursery/${nurseryId}/plants`)
           .then((response2) => {
-            // Initialize quantities state with default values of 0 for each plant
+            
             axios
               .get(
                 `http://localhost:3000/api/cart//get-quantity/${user._id}/${response.data.name}`
@@ -55,7 +55,7 @@ const Nursery = () => {
               })
               .catch((error) => {
                 console.error("Error fetching quantities:", error);
-                // If error occurs while fetching quantities, initialize with 0
+                
                 const initialQuantities = {};
                 response2.data.forEach((plant) => {
                   initialQuantities[plant.name] = 0;
@@ -68,7 +68,7 @@ const Nursery = () => {
             console.error("Error fetching plants in nursery:", error)
           );
 
-        // Make the third Axios call after the first one completes
+        
         axios
           .get(`http://localhost:3000/api/nursery/${nurseryId}/avg`)
           .then((responseAvg) => setPriceRange(responseAvg.data))
@@ -136,7 +136,7 @@ const Nursery = () => {
     }
   };
 
-  // Function to handle decreasing quantity
+
   const decreaseQuantity = (plantId, price, photo_url) => {
     if (quantities[plantId] > 0) {
       setQuantities((prev) => ({

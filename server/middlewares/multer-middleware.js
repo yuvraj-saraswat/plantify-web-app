@@ -1,6 +1,5 @@
 const multer = require('multer');
 
-// Define the Multer middleware configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const cityName = req.body.selectedCityName; 

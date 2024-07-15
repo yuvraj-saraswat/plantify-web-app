@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }) => {
     return localStorage.removeItem("token");
   };
 
-  //JWT Authentication- to get the currently loggedIN user data
 
   const userAuthentication = async () => {
     try {

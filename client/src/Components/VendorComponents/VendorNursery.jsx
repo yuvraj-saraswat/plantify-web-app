@@ -61,13 +61,13 @@ function VendorNursery() {
       formData.append("image", selectedImage);
       formData.append("vendorId", vendor._id);
       formData.append("vendorContact", vendor.phone);
-      // Here you can submit the form data to your backend
+      
       const response = await axios.post(
         "http://localhost:3000/api/vendor/add-nursery",
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data", // Set content type to multipart/form-data for file uploads
+            "Content-Type": "multipart/form-data", 
           },
         }
       );
@@ -172,7 +172,7 @@ function VendorNursery() {
               id="city"
               value={selectedCityId}
               onChange={(e) => {
-                setSelectedCityId(e.target.value); // Set the selectedCityId directly to the value of the selected option
+                setSelectedCityId(e.target.value); 
                 setSelectedCityName(e.target.selectedOptions[0].text);
               }}
             >

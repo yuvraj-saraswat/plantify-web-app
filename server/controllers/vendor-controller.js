@@ -18,7 +18,7 @@ const addNursery = async (req, res) => {
     const imagePath = `/images/${selectedCityName}/${imageName}`;
     //const imagePath = "hi";
     console.log("hohoho",selectedCityName);
-    // Execute an SQL query to insert the nursery data into the database
+ 
     const queryString =
       "INSERT INTO nurseries (name, location, link_loc, city_id, open_time, close_time, photo_url, vendorId, contact) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     connection.query(
